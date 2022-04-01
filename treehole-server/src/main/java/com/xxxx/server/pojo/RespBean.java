@@ -33,8 +33,8 @@ public class RespBean {
      * @param message
      * @return
      */
-    public static RespBean success(String message,Object obj){
-        return new RespBean(200,message,null);
+    public static RespBean success(String message,Object object){
+        return new RespBean(200,message,object);
         /*成功返回的状态码一般是200*/
     }
 
@@ -53,8 +53,8 @@ public class RespBean {
      * @param message
      * @return
      */
-    public static  RespBean error(String message,Object obj){
-        return new RespBean(500,message,null);
+    public static  RespBean error(String message,Object object){
+        return new RespBean(500,message,object);
         /*失败返回的状态一般是500*/
     }
 }

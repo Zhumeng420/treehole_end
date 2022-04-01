@@ -22,7 +22,7 @@ public class JwtAuthencationTokenFilter extends OncePerRequestFilter {
 
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
-    @Value("${jwt,tokenHead")
+    @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -34,15 +34,15 @@ public class JwtAuthencationTokenFilter extends OncePerRequestFilter {
       String authHeader =  request.getHeader(tokenHeader);
       //存在token
       if(null != authHeader && authHeader.startsWith(tokenHead)){
-          String authToken = authHeader.substring(tokenHead.length());
+          String authToken = authHeader.substring(this.tokenHead.length());
           String username =jwtTokenUtil.getUserNameFromToken(authToken);
           //能拿到用户名但是不能在Security全局对象中拿不到对象
           //token存在但未登录
           if(null != username && null== SecurityContextHolder.getContext().getAuthentication()){
               //登录
-              UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+              UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
               //验证token是否有效，重新设置到用户对象
-              if(jwtTokenUtil.validateToken(tokenHead,userDetails)){
+              if(jwtTokenUtil.validateToken(authToken,userDetails)){
                   UsernamePasswordAuthenticationToken authenticationToken =new
                           UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                   authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

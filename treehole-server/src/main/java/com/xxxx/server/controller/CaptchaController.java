@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @RestController
 public class CaptchaController {
-
+    @Autowired
     public DefaultKaptcha defaultKaptcha;
 
     @ApiOperation(value = "验证码")
@@ -40,7 +40,7 @@ public class CaptchaController {
         String text = defaultKaptcha.createText();
         System.out.println("验证码内容"+text);
         //将验证码文本内容放入session
-        request.getSession().setAttribute("captch",text);
+        request.getSession().setAttribute("captcha",text);
         //根据文本验证内容创建图形验证码
         BufferedImage image = defaultKaptcha.createImage(text);
 

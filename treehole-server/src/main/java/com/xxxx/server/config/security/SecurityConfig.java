@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/css/**",
                 "/js/**",
                 "/index.html",
-                "favicon.ioc",
+                "favicon.ico",
                 "/doc.html",
                 "/webjars/**",
                 "/swagger-resources/**",
@@ -57,13 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-               //允许登陆访问
-                .antMatchers("/login","logout")
-                .permitAll()
-                //除了上面所有请求都要认证
+                //所有请求都要认证
                 .anyRequest()
                 .authenticated()
                 .and()
+                //禁用缓存
                 .headers()
                 .cacheControl();
 

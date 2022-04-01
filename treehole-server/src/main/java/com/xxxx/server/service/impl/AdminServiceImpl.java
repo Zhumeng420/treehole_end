@@ -62,7 +62,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         }
         //登录
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if(null == userDetails||passwordEncoder.matches(password,userDetails.getPassword()))
+        if(null == userDetails||!passwordEncoder.matches(password,userDetails.getPassword()))
         {
             return RespBean.error("用户名或密码不正确");
         }
@@ -91,7 +91,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public Admin getAdminByUserName(String username) {
 
-        return adminMapper.selectOne(new QueryWrapper<Admin>().eq("username",username).eq
-                ("enabled",true));
+        return adminMapper.selectOne(new QueryWrapper<Admin>().eq("username",username).eq("enabled",true));
     }
 }
