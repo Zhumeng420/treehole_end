@@ -1,0 +1,3 @@
+# 项目排除路径
+/treehole-generator/target/
+/treehole-server/target/
